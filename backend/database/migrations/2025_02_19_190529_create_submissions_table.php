@@ -13,8 +13,12 @@ return new class extends Migration
     {
         Schema::create('submissions', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Estudiante que entrega
+            $table->foreignId('assignment_id')->constrained()->onDelete('cascade'); // Tarea a entregar
+            $table->dateTime('submitted_at')->default(DB::raw('CURRENT_TIMESTAMP')); // Fecha de entrega
+            $table->decimal('grade', 5, 2)->nullable(); // Calificación
             $table->timestamps();
-        });
+            });
     }
 
     /**
